@@ -23,9 +23,13 @@ kotlin {
             // MQTT
             implementation("io.github.davidepianca98:kmqtt-common:0.4.8")
             implementation("io.github.davidepianca98:kmqtt-client:0.4.8")
+
+            implementation("org.jetbrains.kotlinx:kotlinx-io-core:0.5.1")
+
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
+            implementation("uk.co.caprica:vlcj:4.8.3")
         }
     }
 }

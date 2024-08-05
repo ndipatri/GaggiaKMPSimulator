@@ -18,23 +18,27 @@ enum class CommandType(val transmitName: String) {
 const val commandTopic = "ndipatri/feeds/robogaggiacommand"
 const val telemetryTopic = "ndipatri/feeds/robogaggiatelemetry"
 
-enum class GaggiaState(val stateName: String) {
+enum class GaggiaState(
+    val stateName: String,
+    val videoStartSeconds: Int? = null,
+    val videoEndSeconds: Int? = null
+) {
     IGNORING_NETWORK("ignoringNetwork"),
-    JOINING_NETWORK("joiningNetwork"),
     SLEEP("sleep"),
-    PREHEAT("preheat"),
-    MEASURE_BEANS("measureBeans"),
-    TARE_CUP_AFTER_MEASURE("tareCupAfterMeasure"),
-    HEATING_TO_BREW("heating"),
+    JOINING_NETWORK("joiningNetwork", videoStartSeconds = 0, videoEndSeconds = 12),
+    PREHEAT("preheat", videoStartSeconds = 14, videoEndSeconds = 22),
+    MEASURE_BEANS("measureBeans", videoStartSeconds = 28, videoEndSeconds = 40),
+    TARE_CUP_AFTER_MEASURE("tareCupAfterMeasure", videoStartSeconds = 44, videoEndSeconds = 126),
+    HEATING_TO_BREW("heating", videoStartSeconds = 130, videoEndSeconds = 1),
 
-    PREINFUSION("preInfusion"),
-    BREWING("brewing"),
+    PREINFUSION("preInfusion", videoStartSeconds = 131, videoEndSeconds = 155),
+    BREWING("brewing", videoStartSeconds = 159, videoEndSeconds = 177),
 
-    DONE_BREWING("doneBrewing"),
-    HEATING_TO_STEAM("heatingToSteam"),
-    STEAMING("steaming"),
-    CLEAN_GROUP_READY("cleanGroupReady"),
-    CLEAN_GROUP_DONE("cleanGroupDone"),
+    DONE_BREWING("doneBrewing", videoStartSeconds = 179, videoEndSeconds = 181),
+    HEATING_TO_STEAM("heatingToSteam", videoStartSeconds = 191, videoEndSeconds = 223),
+    STEAMING("steaming", videoStartSeconds = 227, videoEndSeconds = 280),
+    CLEAN_GROUP_READY("cleanGroupReady", videoStartSeconds = 281, videoEndSeconds = 289),
+    CLEAN_GROUP_DONE("cleanGroupDone", videoStartSeconds = 291, videoEndSeconds = 292),
 
     CLEAN_OPTIONS("cleanOptions"),
     DESCALE("descale"),
