@@ -38,9 +38,6 @@ fun App() {
         val telemetryState = simulator.currentTelemetryStateFlow.collectAsState()
 
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            Text("CurrentState: ${telemetryState.value.state}")
-            println("*** NJD currentState: ${telemetryState.value.state}")
-
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,

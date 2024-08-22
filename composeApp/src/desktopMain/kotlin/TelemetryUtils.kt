@@ -37,8 +37,8 @@ enum class GaggiaState(
     DONE_BREWING("doneBrewing", videoStartSeconds = 179, videoEndSeconds = 181),
     HEATING_TO_STEAM("heatingToSteam", videoStartSeconds = 191, videoEndSeconds = 223),
     STEAMING("steaming", videoStartSeconds = 227, videoEndSeconds = 280),
-    CLEAN_GROUP_READY("cleanGroupReady", videoStartSeconds = 281, videoEndSeconds = 289),
-    CLEAN_GROUP_DONE("cleanGroupDone", videoStartSeconds = 291, videoEndSeconds = 292),
+    CLEAN_GROUP_READY("cleanGroupReady", videoStartSeconds = 281, videoEndSeconds = 288),
+    CLEAN_GROUP_DONE("cleanGroupDone", videoStartSeconds = 289, videoEndSeconds = 292),
 
     CLEAN_OPTIONS("cleanOptions"),
     DESCALE("descale"),
@@ -133,4 +133,21 @@ val typicalBrewCycleTelemetryString =
     "brewing, 9:34, 4.000000, 46.700000, 1.666667, 110.250000, 2, 2235, 0\n" +
     "brewing, 11:34, 4.000000, 47.766667, 1.666667, 109.000000, 2, 2235, 0\n" +
     "brewing, 14:34, 5.000000, 48.833333, 2.500000, 107.500000, 2, 2235, 0\n" +
-    "brewing, 16:34, 5.000000, 49.066667, 1.666667, 106.000000, 2, 2235, 0"
+    "brewing, 16:34, 5.000000, 48.833333, 2.500000, 107.500000, 2, 2235, 0\n" +
+    "brewing, 18:34, 5.000000, 48.833333, 2.500000, 107.500000, 2, 2235, 0\n" +
+    "brewing, 20:34, 5.000000, 48.833333, 2.500000, 107.500000, 2, 2235, 0\n" +
+    "brewing, 22:34, 5.000000, 48.833333, 2.500000, 107.500000, 2, 2235, 0\n" +
+    "brewing, 24:34, 6.000000, 48.833333, 2.500000, 107.500000, 2, 2235, 0\n" +
+    "brewing, 26:34, 7.000000, 48.833333, 2.500000, 107.500000, 2, 2235, 0\n" +
+    "brewing, 28:34, 8.000000, 48.833333, 2.500000, 107.500000, 2, 2235, 0\n" +
+    "brewing, 30:34, 9.000000, 48.833333, 2.500000, 107.500000, 2, 2235, 0\n" +
+    "brewing, 32:34, 8.000000, 48.833333, 2.500000, 107.500000, 2, 2235, 0\n" +
+    "brewing, 34:34, 7.000000, 48.833333, 2.500000, 107.500000, 2, 2235, 0\n" +
+    "brewing, 36:34, 5.000000, 48.833333, 2.500000, 107.500000, 2, 2235, 0\n" +
+    "brewing, 38:34, 5.000000, 48.833333, 2.500000, 107.500000, 2, 2235, 0\n" +
+    "brewing, 40:34, 5.000000, 48.833333, 2.500000, 107.500000, 2, 2235, 0\n" +
+    "brewing, 42:34, 5.000000, 48.833333, 2.500000, 107.500000, 2, 2235, 0\n" +
+    "brewing, 44:34, 5.000000, 48.833333, 2.500000, 107.500000, 2, 2235, 0\n" +
+    "brewing, 46:34, 5.000000, 48.833333, 2.500000, 107.500000, 2, 2235, 0\n" +
+    "brewing, 48:34, 5.000000, 48.833333, 2.500000, 107.500000, 2, 2235, 0\n" +
+    "brewing, 50:34, 5.000000, 49.066667, 1.666667, 106.000000, 2, 2235, 0"
