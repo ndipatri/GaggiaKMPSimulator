@@ -4,11 +4,11 @@
 
 [LinkedIn](https://www.linkedin.com/in/ndipatri/)
 
-![Robo Gaggia](media/gaggia1.png)
+![Simulator in Action](media/simulatorInAction.png)
 
 ## MQTT Testing Harness ##
 
-This desktop-based simulator pretends that it is the Robo Gaggia device: it emits telemetry and changes state as commands are sent by the [Robo Gaggia Multiplatform Mobile Application](https://github.com/ndipatri/RoboGaggiaMultiplatform) using MQTT.
+This desktop-based simulator, shown in the bottom left in above image, pretends that it is the Robo Gaggia device: it emits telemetry and changes state as commands are sent by the [Robo Gaggia Multiplatform Mobile Application](https://github.com/ndipatri/RoboGaggiaMultiplatform) using MQTT.  The mobile application is shown in the upper right portion of above image.
 
 This desktop app is built using [Compose Multiplatform UI Framework](https://www.jetbrains.com/lp/compose-multiplatform/) technology.  It is JVM-based. So far, it has been tested on an M1 Max Macbook Pro.
 
