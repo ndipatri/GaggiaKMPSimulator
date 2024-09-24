@@ -1,6 +1,8 @@
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.async
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -14,7 +16,13 @@ import mqtt.packets.mqttv5.SubscriptionOptions
 // app
 class GaggiaSimulator() {
 
+    init {
+        println("*** NJD: new GaggiaSimulator")
+    }
+
     val coroutineScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
+
+    var scheduledScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
 
     lateinit var client: MQTTClient
 
@@ -118,6 +126,9 @@ class GaggiaSimulator() {
     private fun handleIncomingCommand(command: String) {
         println("*** Simulator: Incoming command: $command")
         timeSinceLastCommandMillis = currentTimeMillis()
+
+        scheduledScope.cancel()
+        scheduledScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
 
         currentTelemetryStateFlow.value = currentTelemetryStateFlow.value.copy(
             state = getNextState(
@@ -308,7 +319,7 @@ class GaggiaSimulator() {
 
         when (currentTelemetryStateFlow.value.state) {
             GaggiaState.JOINING_NETWORK -> {
-                coroutineScope.launch(Dispatchers.Default) {
+                scheduledScope.launch(Dispatchers.Default) {
                     // assume it takes 5 seconds to join the network
                     delay(2000)
 
@@ -319,7 +330,7 @@ class GaggiaSimulator() {
             }
 
             GaggiaState.IGNORING_NETWORK -> {
-                coroutineScope.launch(Dispatchers.Default) {
+                scheduledScope.launch(Dispatchers.Default) {
 
                     // assume gaggia has now stopped trying to join network...
                     delay(3000)
@@ -331,7 +342,7 @@ class GaggiaSimulator() {
             }
 
             GaggiaState.PREHEAT -> {
-                coroutineScope.launch(Dispatchers.Default) {
+                scheduledScope.launch(Dispatchers.Default) {
 
                     // we simulate the scale first being empty and then putting
                     // their empty cup on the scale ...
@@ -364,7 +375,7 @@ class GaggiaSimulator() {
             }
 
             GaggiaState.MEASURE_BEANS -> {
-                coroutineScope.launch(Dispatchers.Default) {
+                scheduledScope.launch(Dispatchers.Default) {
 
                     // simulate somebody slowly filling the cup with beans
                     //
@@ -405,7 +416,7 @@ class GaggiaSimulator() {
             }
 
             GaggiaState.TARE_CUP_AFTER_MEASURE -> {
-                coroutineScope.launch(Dispatchers.Default) {
+                scheduledScope.launch(Dispatchers.Default) {
 
                     // we're simulating the user taking the cup full of beans off
                     // the scale, grinding the beans, then replacing the empty cup
@@ -445,7 +456,7 @@ class GaggiaSimulator() {
             }
 
             GaggiaState.HEATING_TO_BREW -> {
-                coroutineScope.launch(Dispatchers.Default) {
+                scheduledScope.launch(Dispatchers.Default) {
 
                     // assume it takes 5 seconds to preheat
                     delay(2000)
@@ -456,7 +467,7 @@ class GaggiaSimulator() {
             }
 
             GaggiaState.PREINFUSION -> {
-                coroutineScope.launch(Dispatchers.Default) {
+                scheduledScope.launch(Dispatchers.Default) {
 
                     // it takes some time for preinfusion and brewing
                     for (telemetryMessage in renderTelemetry(typicalPreinfusionCycleTelemetryString)) {
@@ -480,7 +491,7 @@ class GaggiaSimulator() {
             }
 
             GaggiaState.BREWING -> {
-                coroutineScope.launch(Dispatchers.Default) {
+                scheduledScope.launch(Dispatchers.Default) {
 
                     // it takes some time for preinfusion and brewing
                     for (telemetryMessage in renderTelemetry(typicalBrewCycleTelemetryString)) {
@@ -502,7 +513,7 @@ class GaggiaSimulator() {
             }
 
             GaggiaState.HEATING_TO_STEAM -> {
-                coroutineScope.launch(Dispatchers.Default) {
+                scheduledScope.launch(Dispatchers.Default) {
 
                     // it takes some time to brew
                     delay(4000)
@@ -513,7 +524,7 @@ class GaggiaSimulator() {
             }
 
             GaggiaState.CLEAN_GROUP_DONE -> {
-                coroutineScope.launch(Dispatchers.Default) {
+                scheduledScope.launch(Dispatchers.Default) {
 
                     // assume it takes a couple seconds to clean
                     delay(2000)
@@ -525,7 +536,7 @@ class GaggiaSimulator() {
             }
 
             GaggiaState.HEATING_TO_DISPENSE -> {
-                coroutineScope.launch(Dispatchers.Default) {
+                scheduledScope.launch(Dispatchers.Default) {
 
                     // assume it takes 5 seconds to preheat
                     delay(5000)
