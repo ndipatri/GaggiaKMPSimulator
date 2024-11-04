@@ -33,7 +33,7 @@ class GaggiaSimulator() {
             "0.0",
             "0.0",
             "0.0",
-            "0.0",
+            "105.2:120.0",
             "2",
             "2235",
             "0"
@@ -518,7 +518,9 @@ class GaggiaSimulator() {
                     // it takes some time to brew
                     delay(4000)
 
-                    currentTelemetryStateFlow.value = currentTelemetryStateFlow.value.copy(state = GaggiaState.STEAMING)
+                    currentTelemetryStateFlow.value =
+                        currentTelemetryStateFlow.value.copy(state = GaggiaState.STEAMING,
+                            brewTempC = "130.2342:140.00")
                     // we don't trigger any more state changes as now we wait for user to interact.
                 }
             }
