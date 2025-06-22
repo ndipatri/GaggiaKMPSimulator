@@ -94,8 +94,10 @@ class GaggiaSimulator() {
 
                             // choose which starting screen....
 
-                            currentTelemetryStateFlow.value = currentTelemetryStateFlow.value.copy(state = GaggiaState.JOINING_NETWORK)
+                            //currentTelemetryStateFlow.value = currentTelemetryStateFlow.value.copy(state = GaggiaState.BREWING)
                             //currentTelemetryStateFlow.value = currentTelemetryStateFlow.value.copy(state = GaggiaState.MEASURE_BEANS)
+                            //currentTelemetryStateFlow.value = currentTelemetryStateFlow.value.copy(state = GaggiaState.PREHEAT)
+                            currentTelemetryStateFlow.value = currentTelemetryStateFlow.value.copy(state = GaggiaState.SLEEP)
                             //currentTelemetryStateFlow.value = currentTelemetryStateFlow.value.copy(state = GaggiaState.STEAMING)
 
                             scheduleNextStateAutomaticallyIfNecessary()

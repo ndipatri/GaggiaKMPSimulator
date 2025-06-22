@@ -6,6 +6,10 @@
 
 ![Simulator in Action](media/simulatorInAction.png)
 
+## Running Desktop Simulator ##
+
+Execute Gradle Task: **:composeApp:run**
+
 ## MQTT Testing Harness ##
 
 This desktop-based simulator, shown in the bottom left in above image, pretends that it is the Robo Gaggia device: it emits telemetry and changes state as commands are sent by the [Robo Gaggia Multiplatform Mobile Application](https://github.com/ndipatri/RoboGaggiaMultiplatform) using MQTT.  The mobile application is shown in the upper right portion of above image.
