@@ -267,6 +267,32 @@ class GaggiaSimulator() {
                 }
             }
 
+            GaggiaState.PREINFUSION -> {
+                return when (commandType) {
+                    CommandType.SECOND_BUTTON_CLICK -> {
+                        // user has aborted
+                        GaggiaState.PREHEAT
+                    }
+
+                    else -> {
+                        currentState
+                    }
+                }
+            }
+
+            GaggiaState.BREWING -> {
+                return when (commandType) {
+                    CommandType.SECOND_BUTTON_CLICK -> {
+                        // user has aborted
+                        GaggiaState.PREHEAT
+                    }
+
+                    else -> {
+                        currentState
+                    }
+                }
+            }
+
             GaggiaState.DONE_BREWING -> {
                 return when (commandType) {
                     CommandType.FIRST_BUTTON_CLICK -> {
@@ -276,6 +302,19 @@ class GaggiaSimulator() {
                     CommandType.SECOND_BUTTON_CLICK -> {
                         // user has aborted
                         GaggiaState.PREHEAT
+                    }
+                }
+            }
+
+            GaggiaState.HEATING_TO_STEAM -> {
+                return when (commandType) {
+                    CommandType.SECOND_BUTTON_CLICK -> {
+                        // user has aborted
+                        GaggiaState.PREHEAT
+                    }
+
+                    else -> {
+                        currentState
                     }
                 }
             }
@@ -460,7 +499,7 @@ class GaggiaSimulator() {
             GaggiaState.HEATING_TO_BREW -> {
                 scheduledScope.launch(Dispatchers.Default) {
 
-                    // assume it takes 5 seconds to preheat
+                    // assume it takes 2 seconds to preheat
                     delay(2000)
                     currentTelemetryStateFlow.value = currentTelemetryStateFlow.value.copy(state = GaggiaState.PREINFUSION)
 
@@ -517,12 +556,21 @@ class GaggiaSimulator() {
             GaggiaState.HEATING_TO_STEAM -> {
                 scheduledScope.launch(Dispatchers.Default) {
 
-                    // it takes some time to brew
-                    delay(4000)
+                    // it takes some time to heat up for steam
+                    var currentTemp = 130.0
+                    while(currentTemp <= 140) {
+                        currentTemp += 1.0
+                        delay(1000)
+
+                        currentTelemetryStateFlow.value =
+                            currentTelemetryStateFlow.value.copy(state = GaggiaState.HEATING_TO_STEAM,
+                                brewTempC = "${currentTemp}:140.00")
+                    }
 
                     currentTelemetryStateFlow.value =
                         currentTelemetryStateFlow.value.copy(state = GaggiaState.STEAMING,
-                            brewTempC = "130.2342:140.00")
+                            brewTempC = "${currentTemp}:140.00")
+
                     // we don't trigger any more state changes as now we wait for user to interact.
                 }
             }
